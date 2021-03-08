@@ -206,7 +206,3 @@ class SweeperGui:
         self.game.restartGame()
         self.Timer.restartTimer()
 
-
-if __name__ == "__main__":
-    gui = SweeperGui()
-    gui.run_gui()
