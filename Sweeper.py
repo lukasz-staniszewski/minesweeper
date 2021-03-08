@@ -18,7 +18,7 @@ class Sweeper:
         else:
             return False
 
-    def left_click(self, pos_x, pos_y):
+    def l_click(self, pos_x, pos_y):
         pos_x = int(pos_x)
         pos_y = int(pos_y)
         if not self.is_generated:
@@ -27,13 +27,15 @@ class Sweeper:
             self.discover_fields(pos_x, pos_y)
             self.is_generated = True
             return 1
-        elif self.bombs[pos_x][pos_y] != 1 and self.discovered_fields[pos_x][pos_y] == 0:
+        elif (self.bombs[pos_x][pos_y] != 1
+              and self.discovered_fields[pos_x][pos_y] == 0):
             self.discover_fields(pos_x, pos_y)
             if self.is_won() is True:
                 return 3
             else:
                 return 1
-        elif self.bombs[pos_x][pos_y] == 1 and self.discovered_fields[pos_x][pos_y] == 0:
+        elif (self.bombs[pos_x][pos_y] == 1
+              and self.discovered_fields[pos_x][pos_y] == 0):
             return 2
         return 0
 
@@ -47,7 +49,8 @@ class Sweeper:
             bad_numbers = set([-1, self.size])
             for x in range(-1, 2):
                 for y in range(-1, 2):
-                    if (x, y) != (0, 0) and pos_x + x not in bad_numbers and pos_y + y not in bad_numbers:
+                    if ((x, y) != (0, 0) and pos_x + x not in bad_numbers
+                       and pos_y + y not in bad_numbers):
                         if self.discovered_fields[pos_x + x][pos_y + y] != 1:
                             self.discover_fields(pos_x + x, pos_y + y)
 
@@ -62,7 +65,8 @@ class Sweeper:
         bad_numbers = set([-1, self.size])
         for x in range(-1, 2):
             for y in range(-1, 2):
-                if (x, y) != (0, 0) and pos_x + x not in bad_numbers and pos_y + y not in bad_numbers:
+                if ((x, y) != (0, 0) and pos_x + x not in bad_numbers
+                   and pos_y + y not in bad_numbers):
                     if self.bombs[pos_x + x][pos_y + y] == 1:
                         counter += 1
         self.distances[pos_x][pos_y] = counter
@@ -84,3 +88,10 @@ class Sweeper:
                     self.bombs[ran_x][ran_y] = 1
                     self.distances[ran_x][ran_y] = -1
                     counter += 1
+
+    def restartGame(self):
+        self.board = np.zeros((self.size, self.size))
+        self.is_generated = False
+        self.discovered_fields = np.zeros((self.size, self.size))
+        self.finished = False
+        self.n_of_disc = 0
