@@ -4,17 +4,24 @@
 
 Simple classic Minesweeper game made with python and pygame gui module.
 
-I. REQUIREMENTS:
+### TABLE OF CONTENTS
+##### I. [REQUIREMENTS](#requirements)
+##### II. [HOW TO RUN](#run)
+##### III. [SCREENSHOTS](#ss)
+
+### I. REQUIREMENTS: <a name="requirements"></a>
 + PYTHON 3.8+
 + MODULES: **pygame** AND **numpy**
-II. HOW TO RUN:
+
+### II. HOW TO RUN: <a name="run"></a>
 + DOWNLOAD REPO, UNZIP AND GO TO PROJECT'S FOLDER THROUG CONSOLE
 + RUN GAME WITH:
 ```
 python ./run.py
 ```
 + ENJOY!
-III. SOME SCREENSHOTS
+
+### III. SOME SCREENSHOTS <a name="ss"></a>
 + Lost game:
 
 <img src="https://user-images.githubusercontent.com/59453698/110402532-d9e61780-807b-11eb-95cc-8522483737df.png" width=50%>
