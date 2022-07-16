@@ -21,36 +21,47 @@ class Sweeper:
     def l_click(self, pos_x, pos_y):
         pos_x = int(pos_x)
         pos_y = int(pos_y)
+        
         if not self.is_generated:
             self.generate_bombs(pos_x, pos_y)
             self.generate_distances()
             self.discover_fields(pos_x, pos_y)
             self.is_generated = True
             return 1
-        elif (self.bombs[pos_x][pos_y] != 1
-              and self.discovered_fields[pos_x][pos_y] == 0):
+        
+        elif (
+            self.bombs[pos_x][pos_y] != 1 and self.discovered_fields[pos_x][pos_y] == 0
+        ):
             self.discover_fields(pos_x, pos_y)
             if self.is_won() is True:
                 return 3
             else:
                 return 1
-        elif (self.bombs[pos_x][pos_y] == 1
-              and self.discovered_fields[pos_x][pos_y] == 0):
+        
+        elif (
+            self.bombs[pos_x][pos_y] == 1 and self.discovered_fields[pos_x][pos_y] == 0
+        ):
             return 2
+        
         return 0
 
     def discover_fields(self, pos_x, pos_y):
         if self.distances[pos_x][pos_y] != 0:
             self.discovered_fields[pos_x][pos_y] = 1
             self.n_of_disc += 1
+        
         else:
             self.discovered_fields[pos_x][pos_y] = 1
             self.n_of_disc += 1
             bad_numbers = set([-1, self.size])
+            
             for x in range(-1, 2):
                 for y in range(-1, 2):
-                    if ((x, y) != (0, 0) and pos_x + x not in bad_numbers
-                       and pos_y + y not in bad_numbers):
+                    if (
+                        (x, y) != (0, 0)
+                        and pos_x + x not in bad_numbers
+                        and pos_y + y not in bad_numbers
+                    ):
                         if self.discovered_fields[pos_x + x][pos_y + y] != 1:
                             self.discover_fields(pos_x + x, pos_y + y)
 
@@ -63,23 +74,31 @@ class Sweeper:
     def count_neighbours(self, pos_x, pos_y):
         counter = 0
         bad_numbers = set([-1, self.size])
+        
         for x in range(-1, 2):
             for y in range(-1, 2):
-                if ((x, y) != (0, 0) and pos_x + x not in bad_numbers
-                   and pos_y + y not in bad_numbers):
+                if (
+                    (x, y) != (0, 0)
+                    and pos_x + x not in bad_numbers
+                    and pos_y + y not in bad_numbers
+                ):
                     if self.bombs[pos_x + x][pos_y + y] == 1:
                         counter += 1
+        
         self.distances[pos_x][pos_y] = counter
 
     def generate_bombs(self, pos_x, pos_y):
         self.bombs = np.zeros((self.size, self.size))
         self.distances = np.zeros((self.size, self.size))
         safe_area = []
+        
         for x in range(-1, 2):
             for y in range(-1, 2):
                 safe_area.append((pos_x + x, pos_y + y))
+        
         safe_area = set(safe_area)
         counter = 0
+        
         while counter < self.n_of_bombs:
             ran_x = random.randint(0, self.size - 1)
             ran_y = random.randint(0, self.size - 1)

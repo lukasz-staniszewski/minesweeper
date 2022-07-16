@@ -1,5 +1,6 @@
 import pygame as pg
-from SweeperGui import SweeperGui
+from src.SweeperGui import SweeperGui
+
 pg.init()
 
 if __name__ == "__main__":
